@@ -4,12 +4,29 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "leitos")
 public class Leito {
 
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	private String numero;
 	private String setor;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "leito", cascade = CascadeType.ALL)
 	private Set<Internacao> internacoes = new HashSet<>();
 
 	public Leito() {

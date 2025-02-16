@@ -5,20 +5,45 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lab.hospital.entities.enums.StatusInternacao;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+
+@Entity
 public class Internacao {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@ManyToOne
+	@JoinColumn(name = "paciente_id", nullable = false)
 	private Paciente paciente;
 
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "leito_id", nullable = false)
 	private Set<Leito> leitos = new HashSet<>();
 
+	@ManyToMany
+	@JoinTable(name = "internacao_medico", 
+	joinColumns = @JoinColumn(name = "internacao_id"), 
+	inverseJoinColumns = @JoinColumn(name = "medico_id"))
 	private Set<Medico> medicos = new HashSet<>();
 
+	@Column(name = "data_entrada", nullable = false)
 	private LocalDateTime dataEntrada;
 
+	@Column(name = "data_alta")
 	private LocalDateTime dataAlta;
 
 	private StatusInternacao status;
@@ -83,11 +108,11 @@ public class Internacao {
 	public void setStatus(StatusInternacao status) {
 		this.status = status;
 	}
-	
+
 	public void adicionarLeito(Leito leito) {
 		leitos.add(leito);
 	}
-	
+
 	public void removerLeito(Leito leito) {
 		leitos.remove(leito);
 	}
