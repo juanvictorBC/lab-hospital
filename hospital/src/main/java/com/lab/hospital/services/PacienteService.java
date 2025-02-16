@@ -30,4 +30,16 @@ public class PacienteService {
 	public void excluirPaciente(Long id) {
 		pacienteRepository.deleteById(id);
 	}
+	public Paciente atualizarPaciente(Long id, Paciente paciente) {
+	    Paciente existente = pacienteRepository.findById(id)
+	        .orElseThrow(() -> new RuntimeException("Paciente não encontrado!"));
+	    
+	    existente.setNome(paciente.getNome());
+	    existente.setGenero(paciente.getGenero());
+	    existente.setCpf(paciente.getCpf());
+	    existente.setDataNascimento(paciente.getDataNascimento());
+
+	    return pacienteRepository.save(existente);
+	}
+
 }

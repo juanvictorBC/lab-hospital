@@ -26,11 +26,17 @@ public class InternacaoController {
 	private InternacaoService internacaoService;
 
 	@PostMapping
-	public ResponseEntity<Internacao> salvarInternacao(@RequestBody Internacao internacao) {
-		Internacao interna = internacaoService.salvarInternacao(internacao);
-		return ResponseEntity.ok(interna);
-	}
+	public ResponseEntity<Internacao> criarInternacao(@RequestBody Internacao internacao) {
+	    System.out.println("Recebendo Internacao: " + internacao);
+	    if (internacao.getLeito() == null || internacao.getLeito().getId() == null) {
+	        System.out.println("Erro: Leito está nulo!");
+	        return ResponseEntity.badRequest().body(null);
+	    }
 
+	    Internacao novaInternacao = internacaoService.salvarInternacao(internacao);
+	    return ResponseEntity.ok(novaInternacao);
+	}
+	
 	@GetMapping
 	public ResponseEntity<List<Internacao>> buscarTodasInternacoes() {
 		List<Internacao> internacoes = internacaoService.buscarTodasInternacoes();
@@ -47,9 +53,9 @@ public class InternacaoController {
 	public ResponseEntity<Void> excluirInternacao(@PathVariable Long id) {
 		try {
 			internacaoService.excluirInternacao(id);
-			return ResponseEntity.noContent().build(); 
+			return ResponseEntity.noContent().build();
 		} catch (RuntimeException e) {
-			return ResponseEntity.status(404).body(null); 
+			return ResponseEntity.status(404).body(null);
 		}
 	}
 

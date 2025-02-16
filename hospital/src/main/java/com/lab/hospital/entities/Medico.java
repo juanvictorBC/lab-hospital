@@ -1,11 +1,13 @@
 package com.lab.hospital.entities;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +18,9 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "medicos")
-public class Medico {
+public class Medico implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,12 +28,12 @@ public class Medico {
 	
 	private String nome;
 	
-	@Column(unique = true, nullable = false, length = 10)
 	private String crm;
 	
 	private String especialidade;
 
-	@OneToMany(mappedBy = "medico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
+	@OneToMany(mappedBy = "medicos", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Internacao> internacoes = new HashSet<>();
 
 	public Medico() {

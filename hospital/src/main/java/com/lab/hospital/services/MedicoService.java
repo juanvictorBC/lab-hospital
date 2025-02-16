@@ -30,4 +30,15 @@ public class MedicoService {
 	public void excluirMedico(Long id) {
 		medicoRepository.deleteById(id);
 	}
+	
+	public Medico atualizarMedico(Long id, Medico medico) {
+	    Medico existente = medicoRepository.findById(id)
+	        .orElseThrow(() -> new RuntimeException("Medico não encontrado!"));
+	    
+	    existente.setNome(medico.getNome());
+	    existente.setEspecialidade(medico.getEspecialidade());
+	    existente.setCrm(medico.getCrm());
+
+	    return medicoRepository.save(existente);
+	}
 }

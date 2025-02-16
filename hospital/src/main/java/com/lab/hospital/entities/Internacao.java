@@ -1,11 +1,11 @@
 package com.lab.hospital.entities;
 
-import java.time.LocalDateTime;
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lab.hospital.entities.enums.StatusInternacao;
 
 import jakarta.persistence.Column;
@@ -19,7 +19,9 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Internacao {
+public class Internacao implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,33 +31,33 @@ public class Internacao {
 	@JoinColumn(name = "paciente_id", nullable = false)
 	private Paciente paciente;
 
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "leito_id", nullable = false)
-	private Set<Leito> leitos = new HashSet<>();
+	private Leito leito;
 
 	@ManyToMany
-	@JoinTable(name = "internacao_medico", 
-	joinColumns = @JoinColumn(name = "internacao_id"), 
+	@JoinTable(name = "internacao_medico",
+	joinColumns = @JoinColumn(name = "internacao_id"),
 	inverseJoinColumns = @JoinColumn(name = "medico_id"))
 	private Set<Medico> medicos = new HashSet<>();
 
 	@Column(name = "data_entrada", nullable = false)
-	private LocalDateTime dataEntrada;
+	private LocalDate dataEntrada = LocalDate.now();
 
 	@Column(name = "data_alta")
-	private LocalDateTime dataAlta;
+	private LocalDate dataAlta = LocalDate.now();
 
 	private StatusInternacao status;
 
 	public Internacao() {
 	}
 
-	public Internacao(Long id, Paciente paciente, Leito leito, LocalDateTime dataEntrada, LocalDateTime dataAlta,
+	public Internacao(Long id, Paciente paciente, Leito leito, LocalDate dataEntrada, LocalDate dataAlta,
 			StatusInternacao status) {
 		super();
 		this.id = id;
 		this.paciente = paciente;
+		this.leito = leito;
 		this.dataEntrada = dataEntrada;
 		this.dataAlta = dataAlta;
 		this.status = status;
@@ -77,27 +79,25 @@ public class Internacao {
 		this.paciente = paciente;
 	}
 
-	public Set<Leito> getLeitos() {
-		return leitos;
+	public Leito getLeito() {
+		return leito;
+	}
+
+	public void setLeito(Leito leito) {
+		this.leito = leito;
 	}
 
 	public Set<Medico> getMedicos() {
 		return medicos;
 	}
 
-	public LocalDateTime getDataEntrada() {
-		return dataEntrada;
-	}
 
-	public void setDataEntrada(LocalDateTime dataEntrada) {
-		this.dataEntrada = dataEntrada;
-	}
 
-	public LocalDateTime getDataAlta() {
+	public LocalDate getDataAlta() {
 		return dataAlta;
 	}
 
-	public void setDataAlta(LocalDateTime dataAlta) {
+	public void setDataAlta(LocalDate dataAlta) {
 		this.dataAlta = dataAlta;
 	}
 
@@ -107,14 +107,6 @@ public class Internacao {
 
 	public void setStatus(StatusInternacao status) {
 		this.status = status;
-	}
-
-	public void adicionarLeito(Leito leito) {
-		leitos.add(leito);
-	}
-
-	public void removerLeito(Leito leito) {
-		leitos.remove(leito);
 	}
 
 	@Override
