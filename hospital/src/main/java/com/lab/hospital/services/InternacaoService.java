@@ -27,16 +27,25 @@ public class InternacaoService {
 	public Optional<Internacao> buscarInternacaoPorId(Long id) {
 		return internacaoRepository.findById(id);
 	}
-	
+
+	public void excluirInternacao(Long id) {
+		Optional<Internacao> internacao = internacaoRepository.findById(id);
+		if (internacao.isPresent()) {
+			internacaoRepository.deleteById(id);
+		} else {
+			throw new RuntimeException("Internação não encontrada com ID: " + id);
+		}
+	}
+
 	// Alterar status da internação
-    public Internacao alterarStatusInternacao(Long id, StatusInternacao status) {
-        Optional<Internacao> internacao = internacaoRepository.findById(id);
-        if (internacao.isPresent()) {
-            Internacao i = internacao.get();
-            i.setStatus(status);
-            return internacaoRepository.save(i);
-        }
-        return null;  // Se a internação não for encontrada
-    }
+	public Internacao alterarStatusInternacao(Long id, StatusInternacao status) {
+		Optional<Internacao> internacao = internacaoRepository.findById(id);
+		if (internacao.isPresent()) {
+			Internacao i = internacao.get();
+			i.setStatus(status);
+			return internacaoRepository.save(i);
+		}
+		return null; // Se a internação não for encontrada
+	}
 
 }
