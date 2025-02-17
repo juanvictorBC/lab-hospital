@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listagem de Pacientes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <a href="internacao.html">
+                <li><button>Entrada de Paciente</button></li>
+            </a>
+            <a href="pacientes.html">
+                <li><button>Cadastrar Novo Paciente</button></li>
+            </a>
+        </ul>
+    </nav>
+    <div class="container">
+        <header>
+            <h1>Listagem de Pacientes</h1>
+        </header>
+
+        <main>
+            <table id="pessoasTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Gênero</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <!-- Caixa de edição (inicialmente oculta) -->
+            <div id="editarPacienteBox" style="display: none;">
+                <h2>Editar Paciente</h2>
+                <form id="editarForm">
+                    <div>
+                        <label for="editarNome">Nome</label>
+                        <input type="text" id="editarNome" required>
+                    </div>
+                    <div>
+                        <label for="editarGenero">Gênero</label>
+                        <input type="text" id="editarGenero" required>
+                    </div>
+                    <div>
+                        <label for="editarCpf">CPF</label>
+                        <input type="text" id="editarCpf" required>
+                    </div>
+                    <div>
+                        <label for="editarNascimento">Data de Nascimento</label>
+                        <input type="date" id="editarNascimento" required>
+                    </div>
+                    <button type="submit">Salvar Alterações</button>
+                    <button type="button" id="cancelarEdicao">Cancelar</button>
+                </form>
+            </div>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
