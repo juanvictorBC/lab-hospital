@@ -7,7 +7,7 @@ Este projeto lab, está sendo desenvolvido para gerenciar internações hospital
 
 - Java com Spring Boot: Framework para desenvolvimento da API REST.
 - JPA/Hibernate: Para interação com o banco de dados.
-- T-SQL: Para manipulação do banco de dados SQL.
+- PostgreSQL: Para manipulação do banco de dados SQL.
 - Enumeração: Utilização de enum para representar o status da internação.
 - Set: Para garantir que não haja duplicação de dados nas entidades.
 
