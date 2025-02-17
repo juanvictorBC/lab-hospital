@@ -9,7 +9,6 @@ Este projeto lab, está sendo desenvolvido para gerenciar internações hospital
 - JPA/Hibernate: Para interação com o banco de dados.
 - PostgreSQL: Para manipulação do banco de dados SQL.
 - Enumeração: Utilização de enum para representar o status da internação.
-- Set: Para garantir que não haja duplicação de dados nas entidades.
 
 ## Funcionalidades
 
