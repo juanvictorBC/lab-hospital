@@ -35,13 +35,13 @@ git clone https://github.com/juanvictorBC/lab-hospital.git
 
 6. Endpoints da API (GET, POST, PUT, DELETE)
 - /pacientes
-- /pacientes/id
+- /pacientes/{id}
 - /medicos
-- /medicos/id
+- /medicos/{id}
 - /internacoes/
-- /internacoes/id
+- /internacoes/{id}
 - /leitos
-- leitos/id
+- leitos/{id}
 
 # Como Contribuir
 
